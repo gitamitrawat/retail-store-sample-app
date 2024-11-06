@@ -68,56 +68,59 @@ jobs:
           TAG: "${{ github.event.inputs.tag }}"
         run: |
           # Build first to ensure all images create successfully
-          scripts/build-image.sh -r 'public.ecr.aws/aws-containers' -t $TAG --multi-arch
+          scripts/build-image.sh -r 'retail-store/containers' -t $TAG --multi-arch
 
       - name: Get AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          # role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          # aws-region: ${{ secrets.AWS_REGION }}
+          # role-session-name: GithubActionsSession
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
-          role-session-name: GithubActionsSession
 
       - name: Login to Amazon ECR Public
-        id: login-ecr-public
+        id: login-ecr-private
         uses: aws-actions/amazon-ecr-login@v1
         with:
-          registry-type: public
+          registry-type: private
 
       - name: Push Images
         env:
           TAG: "${{ github.event.inputs.tag }}"
         run: |
           # Push all images
-          scripts/build-image.sh -r 'public.ecr.aws/aws-containers' -t $TAG --multi-arch -p
+          scripts/build-image.sh -r 'retail-store/containers' -t $TAG --multi-arch -p
 
-  release:
-    name: Release
-    needs: [tag, images]
-    runs-on: ubuntu-latest
+  # release:
+  #   name: Release
+  #   needs: [tag, images]
+  #   runs-on: ubuntu-latest
 
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          ref: ${{ github.event.inputs.tag }}
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #       with:
+  #         ref: ${{ github.event.inputs.tag }}
 
-      - name: Merge to main
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          gh pr create -B main -H release/${{ github.event.inputs.tag }} --title 'chore(release): ${{ github.event.inputs.tag }}' --body 'Generate pull request for release'
+  #     - name: Merge to main
+  #       env:
+  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #       run: |
+  #         gh pr create -B main -H release/${{ github.event.inputs.tag }} --title 'chore(release): ${{ github.event.inputs.tag }}' --body 'Generate pull request for release'
 
-      - name: Build Changelog
-        id: github_release
-        uses: mikepenz/release-changelog-builder-action@v3
-        with:
-          configuration: "release-notes-configuration.json"
-          toTag: ${{ github.event.inputs.tag }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #     - name: Build Changelog
+  #       id: github_release
+  #       uses: mikepenz/release-changelog-builder-action@v3
+  #       with:
+  #         configuration: "release-notes-configuration.json"
+  #         toTag: ${{ github.event.inputs.tag }}
+  #       env:
+  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Create GitHub release
-        uses: ncipollo/release-action@v1
-        with:
-          tag: ${{ github.event.inputs.tag }}
-          name: Release ${{ github.event.inputs.tag }}
-          body: ${{steps.github_release.outputs.changelog}}
+  #     - name: Create GitHub release
+  #       uses: ncipollo/release-action@v1
+  #       with:
+  #         tag: ${{ github.event.inputs.tag }}
+  #         name: Release ${{ github.event.inputs.tag }}
+  #         body: ${{steps.github_release.outputs.changelog}}
