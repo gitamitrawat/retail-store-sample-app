@@ -68,7 +68,7 @@ jobs:
           TAG: "${{ github.event.inputs.tag }}"
         run: |
           # Build first to ensure all images create successfully
-          scripts/build-image.sh -r 'retail-store/containers' -t $TAG --multi-arch
+          scripts/build-image.sh -r '205856127113.dkr.ecr.us-east-1.amazonaws.com/retail-store/containers' -t $TAG --multi-arch
 
       - name: Get AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -91,7 +91,7 @@ jobs:
           TAG: "${{ github.event.inputs.tag }}"
         run: |
           # Push all images
-          scripts/build-image.sh -r 'retail-store/containers' -t $TAG --multi-arch -p
+          scripts/build-image.sh -r '205856127113.dkr.ecr.us-east-1.amazonaws.com/retail-store/containers' -t $TAG --multi-arch -p
 
   # release:
   #   name: Release
