@@ -68,7 +68,8 @@ jobs:
           TAG: "${{ github.event.inputs.tag }}"
         run: |
           # Build first to ensure all images create successfully
-          scripts/build-image.sh -r '205856127113.dkr.ecr.us-east-1.amazonaws.com/retail-store/containers' -s ui -t $TAG --multi-arch
+          scripts/build-image.sh -r '205856127113.dkr.ecr.us-east-1.amazonaws.com/retail-store/containers' -s ui cart -t $TAG --multi-arch
+          docker images || true
 
       - name: Get AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -92,9 +93,9 @@ jobs:
         run: |
           # Push all images
           aws ecr describe-repositories --region us-east-1 || true
-          docker push 205856127113.dkr.ecr.us-east-1.amazonaws.com/retail-store/containers/retail-store-sample-ui:$TAG || true
-          scripts/build-image.sh -r '205856127113.dkr.ecr.us-east-1.amazonaws.com/retail-store/containers' -s ui -t $TAG --multi-arch -p
-          docker push 205856127113.dkr.ecr.us-east-1.amazonaws.com/retail-store/containers/retail-store-sample-ui:$TAG || true
+          docker images || true
+          scripts/build-image.sh -r '205856127113.dkr.ecr.us-east-1.amazonaws.com/retail-store/containers' -s ui cart -t $TAG --multi-arch -p
+          docker images || true
 
   # release:
   #   name: Release
