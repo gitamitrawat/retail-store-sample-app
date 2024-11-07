@@ -93,9 +93,16 @@ jobs:
           TAG: "${{ github.event.inputs.tag }}"
         run: |
           # Push all images
-          aws ecr describe-repositories --region us-east-1 || true
-          docker images || true
+          # aws ecr describe-repositories --region us-east-1 || true
+          # docker images || true
           docker buildx build --progress plain --push --platform linux/amd64,linux/arm64 -f "src/ui/Dockerfile" -t "205856127113.dkr.ecr.us-east-1.amazonaws.com/retail-store/containers/retail-store-sample-ui:$TAG" "src/ui"
+          docker buildx build --progress plain --push --platform linux/amd64,linux/arm64 -f "src/catalog/Dockerfile" -t "205856127113.dkr.ecr.us-east-1.amazonaws.com/retail-store/containers/retail-store-sample-catalog:$TAG" "src/catalog"
+          docker buildx build --progress plain --push --platform linux/amd64,linux/arm64 -f "src/cart/Dockerfile" -t "205856127113.dkr.ecr.us-east-1.amazonaws.com/retail-store/containers/retail-store-sample-cart:$TAG" "src/cart"
+          docker buildx build --progress plain --push --platform linux/amd64,linux/arm64 -f "src/orders/Dockerfile" -t "205856127113.dkr.ecr.us-east-1.amazonaws.com/retail-store/containers/retail-store-sample-orders:$TAG" "src/orders"
+          docker buildx build --progress plain --push --platform linux/amd64,linux/arm64 -f "src/checkout/Dockerfile" -t "205856127113.dkr.ecr.us-east-1.amazonaws.com/retail-store/containers/retail-store-sample-checkout:$TAG" "src/checkout"
+          docker buildx build --progress plain --push --platform linux/amd64,linux/arm64 -f "src/assets/Dockerfile" -t "205856127113.dkr.ecr.us-east-1.amazonaws.com/retail-store/containers/retail-store-sample-assets:$TAG" "src/assets"
+          docker buildx build --progress plain --push --platform linux/amd64,linux/arm64 -f "src/load-generator/Dockerfile" -t "205856127113.dkr.ecr.us-east-1.amazonaws.com/retail-store/containers/retail-store-sample-utils:load-gen.$TAG" "src/load-generator"
+          
           # scripts/build-image.sh -r '205856127113.dkr.ecr.us-east-1.amazonaws.com/retail-store/containers' -s ui -t $TAG --multi-arch -p
           # scripts/build-image.sh -r '205856127113.dkr.ecr.us-east-1.amazonaws.com/retail-store/containers' -s catalog -t $TAG --multi-arch -p
           # scripts/build-image.sh -r '205856127113.dkr.ecr.us-east-1.amazonaws.com/retail-store/containers' -s cart -t $TAG --multi-arch -p
