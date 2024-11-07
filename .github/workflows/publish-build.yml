@@ -96,7 +96,12 @@ jobs:
           aws ecr describe-repositories --region us-east-1 || true
           docker images || true
           scripts/build-image.sh -r '205856127113.dkr.ecr.us-east-1.amazonaws.com/retail-store/containers' -s ui -t $TAG --multi-arch -p
+          scripts/build-image.sh -r '205856127113.dkr.ecr.us-east-1.amazonaws.com/retail-store/containers' -s catalog -t $TAG --multi-arch -p
           scripts/build-image.sh -r '205856127113.dkr.ecr.us-east-1.amazonaws.com/retail-store/containers' -s cart -t $TAG --multi-arch -p
+          scripts/build-image.sh -r '205856127113.dkr.ecr.us-east-1.amazonaws.com/retail-store/containers' -s orders -t $TAG --multi-arch -p
+          scripts/build-image.sh -r '205856127113.dkr.ecr.us-east-1.amazonaws.com/retail-store/containers' -s checkout -t $TAG --multi-arch -p
+          scripts/build-image.sh -r '205856127113.dkr.ecr.us-east-1.amazonaws.com/retail-store/containers' -s assets -t $TAG --multi-arch -p
+          scripts/build-image.sh -r '205856127113.dkr.ecr.us-east-1.amazonaws.com/retail-store/containers' -s load-generator -t $TAG --multi-arch -p
           docker images || true
 
   # release:
