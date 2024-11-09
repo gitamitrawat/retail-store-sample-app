@@ -142,7 +142,7 @@ jobs:
         env:
           KUBECONFIG: ~/.kube/config
         run: |
-          kubectl apply -f dist/kubernetes/deploy-bak.yaml
+          kubectl apply -f dist/kubernetes/deploy-bak.yaml --validate=false
           
       - name: Wait for deployment to be ready
         env:
