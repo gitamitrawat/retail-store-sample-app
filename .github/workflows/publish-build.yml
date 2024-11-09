@@ -21,20 +21,21 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v3
 
-      - uses: azure/setup-kubectl@v3
-        id: install
+      # - uses: azure/setup-kubectl@v3
+      #   id: install
 
-      - name: Setup helmfile
-        uses: mamezou-tech/setup-helmfile@v1.2.0
+      # - name: Setup helmfile
+      #   uses: mamezou-tech/setup-helmfile@v1.2.0
 
-      - name: Update manifests
-        env:
-          TAG: "${{ github.event.inputs.tag }}"
-        run: |
-          sudo apt-get install -y gettext
+      # - name: Update manifests
+      #   env:
+      #     TAG: "${{ github.event.inputs.tag }}"
+      #   run: |
+      #     sudo apt-get install -y gettext
 
-          bash scripts/patch-image-tag.sh
+      #     bash scripts/patch-image-tag.sh
 
+      # creating release branch as per Tag value: release/Tag
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: "Release ${{ github.event.inputs.tag }}"
@@ -43,7 +44,7 @@ jobs:
           create_branch: true
 
   images:
-    name: Build Images
+    name: Build, Push and Deploy Images
     needs: tag
     runs-on: ubuntu-latest
 
@@ -88,20 +89,20 @@ jobs:
         with:
           registry-type: private
 
-      - name: Push Images
+      - name: Build and Push Images
         env:
           TAG: "${{ github.event.inputs.tag }}"
         run: |
           # Push all images
           # aws ecr describe-repositories --region us-east-1 || true
-          # docker images || true
-          docker buildx build --progress plain --push --platform linux/amd64,linux/arm64 -f "src/ui/Dockerfile" -t "205856127113.dkr.ecr.us-east-1.amazonaws.com/retail-store/containers/retail-store-sample-ui:$TAG" "src/ui"
-          docker buildx build --progress plain --push --platform linux/amd64,linux/arm64 -f "src/catalog/Dockerfile" -t "205856127113.dkr.ecr.us-east-1.amazonaws.com/retail-store/containers/retail-store-sample-catalog:$TAG" "src/catalog"
-          docker buildx build --progress plain --push --platform linux/amd64,linux/arm64 -f "src/cart/Dockerfile" -t "205856127113.dkr.ecr.us-east-1.amazonaws.com/retail-store/containers/retail-store-sample-cart:$TAG" "src/cart"
-          docker buildx build --progress plain --push --platform linux/amd64,linux/arm64 -f "src/orders/Dockerfile" -t "205856127113.dkr.ecr.us-east-1.amazonaws.com/retail-store/containers/retail-store-sample-orders:$TAG" "src/orders"
-          docker buildx build --progress plain --push --platform linux/amd64,linux/arm64 -f "src/checkout/Dockerfile" -t "205856127113.dkr.ecr.us-east-1.amazonaws.com/retail-store/containers/retail-store-sample-checkout:$TAG" "src/checkout"
-          docker buildx build --progress plain --push --platform linux/amd64,linux/arm64 -f "src/assets/Dockerfile" -t "205856127113.dkr.ecr.us-east-1.amazonaws.com/retail-store/containers/retail-store-sample-assets:$TAG" "src/assets"
-          docker buildx build --progress plain --push --platform linux/amd64,linux/arm64 -f "src/load-generator/Dockerfile" -t "205856127113.dkr.ecr.us-east-1.amazonaws.com/retail-store/containers/retail-store-sample-utils:load-gen.$TAG" "src/load-generator"
+          
+          # docker buildx build --progress plain --push --platform linux/amd64,linux/arm64 -f "src/ui/Dockerfile" -t "205856127113.dkr.ecr.us-east-1.amazonaws.com/retail-store/containers/retail-store-sample-ui:$TAG" "src/ui"
+          # docker buildx build --progress plain --push --platform linux/amd64,linux/arm64 -f "src/catalog/Dockerfile" -t "205856127113.dkr.ecr.us-east-1.amazonaws.com/retail-store/containers/retail-store-sample-catalog:$TAG" "src/catalog"
+          # docker buildx build --progress plain --push --platform linux/amd64,linux/arm64 -f "src/cart/Dockerfile" -t "205856127113.dkr.ecr.us-east-1.amazonaws.com/retail-store/containers/retail-store-sample-cart:$TAG" "src/cart"
+          # docker buildx build --progress plain --push --platform linux/amd64,linux/arm64 -f "src/orders/Dockerfile" -t "205856127113.dkr.ecr.us-east-1.amazonaws.com/retail-store/containers/retail-store-sample-orders:$TAG" "src/orders"
+          # docker buildx build --progress plain --push --platform linux/amd64,linux/arm64 -f "src/checkout/Dockerfile" -t "205856127113.dkr.ecr.us-east-1.amazonaws.com/retail-store/containers/retail-store-sample-checkout:$TAG" "src/checkout"
+          # docker buildx build --progress plain --push --platform linux/amd64,linux/arm64 -f "src/assets/Dockerfile" -t "205856127113.dkr.ecr.us-east-1.amazonaws.com/retail-store/containers/retail-store-sample-assets:$TAG" "src/assets"
+          # docker buildx build --progress plain --push --platform linux/amd64,linux/arm64 -f "src/load-generator/Dockerfile" -t "205856127113.dkr.ecr.us-east-1.amazonaws.com/retail-store/containers/retail-store-sample-utils:load-gen.$TAG" "src/load-generator"
           
           # scripts/build-image.sh -r '205856127113.dkr.ecr.us-east-1.amazonaws.com/retail-store/containers' -s ui -t $TAG --multi-arch -p
           # scripts/build-image.sh -r '205856127113.dkr.ecr.us-east-1.amazonaws.com/retail-store/containers' -s catalog -t $TAG --multi-arch -p
@@ -111,6 +112,40 @@ jobs:
           # scripts/build-image.sh -r '205856127113.dkr.ecr.us-east-1.amazonaws.com/retail-store/containers' -s assets -t $TAG --multi-arch -p
           # scripts/build-image.sh -r '205856127113.dkr.ecr.us-east-1.amazonaws.com/retail-store/containers' -s load-generator -t $TAG --multi-arch -p
           docker images || true
+          
+      - name: Install kubectl
+        run: |
+          # Download the kubectl binary compatible with your EKS cluster's version
+          KUBECTL_VERSION=$(aws eks describe-cluster --name retail-store-eks --query "cluster.version" --output text) || true
+          curl -LO "https://dl.k8s.io/release/v$KUBECTL_VERSION/bin/linux/amd64/kubectl"
+          chmod +x kubectl
+          sudo mv kubectl /usr/local/bin/
+          
+      - name: Set up kubectl
+        run: |
+          # Get the kubeconfig for your EKS cluster
+          aws eks update-kubeconfig --name retail-store-eks --region us-east-1
+
+      - name: Deploy to EKS
+        env:
+          KUBECONFIG: ~/.kube/config
+        run: |
+          kubectl apply -f dist/kubernetes/deploy-bak.yaml
+          
+      - name: Wait for deployment to be ready
+        env:
+          KUBECONFIG: ~/.kube/config
+        run: |
+          # Replace "deployment-name" with the name of your deployment and "namespace" with the relevant namespace
+          kubectl rollout status deployment/catalog || true
+          kubectl rollout status deployment/carts || true
+          kubectl rollout status deployment/carts-dynamodb || true
+          kubectl rollout status deployment/orders || true
+          kubectl rollout status deployment/checkout || true
+          kubectl rollout status deployment/checkout-redis || true
+          kubectl rollout status deployment/assets || true
+          kubectl rollout status deployment/ui || true
+          kubectl get svc ui
 
   # release:
   #   name: Release
