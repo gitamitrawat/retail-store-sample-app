@@ -141,7 +141,7 @@ spec:
             readOnlyRootFilesystem: true
             runAsNonRoot: true
             runAsUser: 1000
-          image: "205856127113.dkr.ecr.us-east-1.amazonaws.com/retail-store/containers/retail-store-sample-catalog:latest"
+          image: "205856127113.dkr.ecr.us-east-1.amazonaws.com/retail-store/containers/retail-store-sample-catalog:0.1.1"
           imagePullPolicy: IfNotPresent
           ports:
             - name: http
@@ -353,7 +353,7 @@ spec:
             readOnlyRootFilesystem: true
             runAsNonRoot: true
             runAsUser: 1000
-          image: "205856127113.dkr.ecr.us-east-1.amazonaws.com/retail-store/containers/retail-store-sample-cart:latest"
+          image: "205856127113.dkr.ecr.us-east-1.amazonaws.com/retail-store/containers/retail-store-sample-cart:0.1.1"
           imagePullPolicy: IfNotPresent
           ports:
             - name: http
@@ -594,7 +594,7 @@ spec:
             readOnlyRootFilesystem: true
             runAsNonRoot: true
             runAsUser: 1000
-          image: "205856127113.dkr.ecr.us-east-1.amazonaws.com/retail-store/containers/retail-store-sample-orders:latest"
+          image: "205856127113.dkr.ecr.us-east-1.amazonaws.com/retail-store/containers/retail-store-sample-orders:0.1.1"
           imagePullPolicy: IfNotPresent
           ports:
             - name: http
@@ -842,7 +842,7 @@ spec:
             readOnlyRootFilesystem: true
             runAsNonRoot: true
             runAsUser: 1000
-          image: "205856127113.dkr.ecr.us-east-1.amazonaws.com/retail-store/containers/retail-store-sample-checkout:latest"
+          image: "205856127113.dkr.ecr.us-east-1.amazonaws.com/retail-store/containers/retail-store-sample-checkout:0.1.1"
           imagePullPolicy: IfNotPresent
           ports:
             - name: http
@@ -994,7 +994,7 @@ spec:
               drop:
               - ALL
             readOnlyRootFilesystem: false
-          image: "205856127113.dkr.ecr.us-east-1.amazonaws.com/retail-store/containers/retail-store-sample-assets:latest"
+          image: "205856127113.dkr.ecr.us-east-1.amazonaws.com/retail-store/containers/retail-store-sample-assets:0.1.1"
           imagePullPolicy: IfNotPresent
           ports:
             - name: http
@@ -1128,7 +1128,7 @@ spec:
             readOnlyRootFilesystem: true
             runAsNonRoot: true
             runAsUser: 1000
-          image: "205856127113.dkr.ecr.us-east-1.amazonaws.com/retail-store/containers/retail-store-sample-ui:latest"
+          image: "205856127113.dkr.ecr.us-east-1.amazonaws.com/retail-store/containers/retail-store-sample-ui:0.1.1"
           imagePullPolicy: IfNotPresent
           ports:
             - name: http
