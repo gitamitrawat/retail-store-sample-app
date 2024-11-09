@@ -128,9 +128,7 @@ jobs:
         with:
           version: 'latest'
           
-      - name: Set up kubectl
-        env:
-          KUBECONFIG: ~/.kube/config
+      - name: Set up kubectl      
         run: |
           # Get the kubeconfig for your EKS cluster
           # kubectl version
@@ -142,15 +140,11 @@ jobs:
           kubectl config current-context
           kubectl get nodes || echo "Error: Unable to connect to the EKS cluster"
 
-      - name: Deploy to EKS
-        env:
-          KUBECONFIG: ~/.kube/config
+      - name: Deploy to EKS       
         run: |
           kubectl apply -f dist/kubernetes/deploy-bak.yaml --validate=false
           
-      - name: Wait for deployment to be ready
-        env:
-          KUBECONFIG: ~/.kube/config
+      - name: Wait for deployment to be ready        
         run: |
           # Replace "deployment-name" with the name of your deployment and "namespace" with the relevant namespace
           kubectl rollout status deployment/catalog || true
