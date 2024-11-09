@@ -114,14 +114,17 @@ jobs:
           # scripts/build-image.sh -r '205856127113.dkr.ecr.us-east-1.amazonaws.com/retail-store/containers' -s load-generator -t $TAG --multi-arch -p
           docker images || true
           
-      - name: Install kubectl
-        run: |
-          # Download the kubectl binary compatible with your EKS cluster's version
-          KUBECTL_VERSION=$(aws eks describe-cluster --name retail-store-eks --query "cluster.version" --output text) || true
-          echo "Installing kubectl version $KUBECTL_VERSION..."
-          curl -LO "https://dl.k8s.io/release/v$KUBECTL_VERSION/bin/linux/amd64/kubectl"
-          chmod +x kubectl
-          sudo mv kubectl /usr/local/bin/
+      # - name: Install kubectl
+      #   run: |
+      #     # Download the kubectl binary compatible with your EKS cluster's version
+      #     KUBECTL_VERSION=$(aws eks describe-cluster --name retail-store-eks --query "cluster.version" --output text) || true
+      #     echo "Installing kubectl version $KUBECTL_VERSION..."
+      #     curl -LO "https://dl.k8s.io/release/v$KUBECTL_VERSION/bin/linux/amd64/kubectl"
+      #     chmod +x kubectl
+      #     sudo mv kubectl /usr/local/bin/
+      
+      - uses: azure/setup-kubectl@v3
+        id: install
           
       - name: Set up kubectl
         run: |
