@@ -5,7 +5,7 @@ kind: ServiceAccount
 metadata:
   name: catalog
   labels:
-    # # helm.sh/chart: catalog-0.1.1
+    # helm.sh/chart: catalog-0.1.1
     app.kubernetes.io/name: catalog
     app.kubernetes.io/instance: catalog
     app.kubernetes.io/component: service
@@ -141,7 +141,7 @@ spec:
             readOnlyRootFilesystem: true
             runAsNonRoot: true
             runAsUser: 1000
-          image: "205856127113.dkr.ecr.us-east-1.amazonaws.com/retail-store/containers/retail-store-sample-catalog"
+          image: "205856127113.dkr.ecr.us-east-1.amazonaws.com/retail-store/containers/retail-store-sample-catalog:latest"
           imagePullPolicy: IfNotPresent
           ports:
             - name: http
@@ -353,7 +353,7 @@ spec:
             readOnlyRootFilesystem: true
             runAsNonRoot: true
             runAsUser: 1000
-          image: "205856127113.dkr.ecr.us-east-1.amazonaws.com/retail-store/containers/retail-store-sample-cart"
+          image: "205856127113.dkr.ecr.us-east-1.amazonaws.com/retail-store/containers/retail-store-sample-cart:latest"
           imagePullPolicy: IfNotPresent
           ports:
             - name: http
@@ -594,7 +594,7 @@ spec:
             readOnlyRootFilesystem: true
             runAsNonRoot: true
             runAsUser: 1000
-          image: "205856127113.dkr.ecr.us-east-1.amazonaws.com/retail-store/containers/retail-store-sample-orders"
+          image: "205856127113.dkr.ecr.us-east-1.amazonaws.com/retail-store/containers/retail-store-sample-orders:latest"
           imagePullPolicy: IfNotPresent
           ports:
             - name: http
@@ -842,7 +842,7 @@ spec:
             readOnlyRootFilesystem: true
             runAsNonRoot: true
             runAsUser: 1000
-          image: "205856127113.dkr.ecr.us-east-1.amazonaws.com/retail-store/containers/retail-store-sample-checkout"
+          image: "205856127113.dkr.ecr.us-east-1.amazonaws.com/retail-store/containers/retail-store-sample-checkout:latest"
           imagePullPolicy: IfNotPresent
           ports:
             - name: http
@@ -994,7 +994,7 @@ spec:
               drop:
               - ALL
             readOnlyRootFilesystem: false
-          image: "205856127113.dkr.ecr.us-east-1.amazonaws.com/retail-store/containers/retail-store-sample-assets"
+          image: "205856127113.dkr.ecr.us-east-1.amazonaws.com/retail-store/containers/retail-store-sample-assets:latest"
           imagePullPolicy: IfNotPresent
           ports:
             - name: http
@@ -1128,7 +1128,7 @@ spec:
             readOnlyRootFilesystem: true
             runAsNonRoot: true
             runAsUser: 1000
-          image: "205856127113.dkr.ecr.us-east-1.amazonaws.com/retail-store/containers/retail-store-sample-ui"
+          image: "205856127113.dkr.ecr.us-east-1.amazonaws.com/retail-store/containers/retail-store-sample-ui:latest"
           imagePullPolicy: IfNotPresent
           ports:
             - name: http
