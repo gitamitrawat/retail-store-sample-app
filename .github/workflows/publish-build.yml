@@ -131,8 +131,12 @@ jobs:
       - name: Set up kubectl
         run: |
           # Get the kubeconfig for your EKS cluster
-          kubectl version
+          # kubectl version
           aws eks update-kubeconfig --name retail-store-eks --region us-east-1
+          echo "Verifying kubeconfig setup..."
+          cat ~/.kube/config  # This helps verify if kubeconfig was created
+          kubectl get nodes  # Test command to verify connection to EKS cluster
+          kubectl version
 
       - name: Deploy to EKS
         env:
