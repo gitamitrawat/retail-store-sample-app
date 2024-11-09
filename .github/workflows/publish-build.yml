@@ -122,9 +122,11 @@ jobs:
       #     curl -LO "https://dl.k8s.io/release/v$KUBECTL_VERSION/bin/linux/amd64/kubectl"
       #     chmod +x kubectl
       #     sudo mv kubectl /usr/local/bin/
-      
-      - uses: azure/setup-kubectl@v3
-        id: install
+      #     kubectl version --client
+      - name: Install kubectl
+        uses: azure/setup-kubectl@v3
+        with:
+          version: 'latest'
           
       - name: Set up kubectl
         run: |
