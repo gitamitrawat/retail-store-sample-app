@@ -5,12 +5,12 @@ kind: ServiceAccount
 metadata:
   name: catalog
   labels:
-    helm.sh/chart: catalog-0.1.1
+    # # helm.sh/chart: catalog-0.1.1
     app.kubernetes.io/name: catalog
     app.kubernetes.io/instance: catalog
     app.kubernetes.io/component: service
     app.kuberneres.io/owner: retail-store-sample
-    app.kubernetes.io/managed-by: Helm
+    # app.kubernetes.io/managed-by: Helm
 ---
 # Source: catalog/templates/mysql-secret.yaml
 apiVersion: v1
@@ -37,11 +37,11 @@ kind: Service
 metadata:
   name: catalog-mysql
   labels:
-    helm.sh/chart: catalog-0.1.1
+    # helm.sh/chart: catalog-0.1.1
     app.kubernetes.io/name: catalog
     app.kubernetes.io/instance: catalog
     app.kubernetes.io/component: mysql
-    app.kubernetes.io/managed-by: Helm
+    # app.kubernetes.io/managed-by: Helm
 spec:
   type: ClusterIP
   ports:
@@ -60,12 +60,12 @@ kind: Service
 metadata:
   name: catalog
   labels:
-    helm.sh/chart: catalog-0.1.1
+    # helm.sh/chart: catalog-0.1.1
     app.kubernetes.io/name: catalog
     app.kubernetes.io/instance: catalog
     app.kubernetes.io/component: service
     app.kuberneres.io/owner: retail-store-sample
-    app.kubernetes.io/managed-by: Helm
+    # app.kubernetes.io/managed-by: Helm
 spec:
   type: ClusterIP
   ports:
@@ -85,12 +85,12 @@ kind: Deployment
 metadata:
   name: catalog
   labels:
-    helm.sh/chart: catalog-0.1.1
+    # helm.sh/chart: catalog-0.1.1
     app.kubernetes.io/name: catalog
     app.kubernetes.io/instance: catalog
     app.kubernetes.io/component: service
     app.kuberneres.io/owner: retail-store-sample
-    app.kubernetes.io/managed-by: Helm
+    # app.kubernetes.io/managed-by: Helm
 spec:
   replicas: 1
   strategy:
@@ -141,7 +141,7 @@ spec:
             readOnlyRootFilesystem: true
             runAsNonRoot: true
             runAsUser: 1000
-          image: "205856127113.dkr.ecr.us-east-1.amazonaws.com/retail-store/containers/retail-store-sample-catalog:0.1.1"
+          image: "205856127113.dkr.ecr.us-east-1.amazonaws.com/retail-store/containers/retail-store-sample-catalog"
           imagePullPolicy: IfNotPresent
           ports:
             - name: http
@@ -173,11 +173,11 @@ kind: StatefulSet
 metadata:
   name: catalog-mysql
   labels:
-    helm.sh/chart: catalog-0.1.1
+    # helm.sh/chart: catalog-0.1.1
     app.kubernetes.io/name: catalog
     app.kubernetes.io/instance: catalog
     app.kubernetes.io/component: mysql
-    app.kubernetes.io/managed-by: Helm
+    # app.kubernetes.io/managed-by: Helm
 spec:
   replicas: 1
   serviceName: catalog-mysql
@@ -230,12 +230,12 @@ kind: ServiceAccount
 metadata:
   name: carts
   labels:
-    helm.sh/chart: carts-0.1.1
+    # helm.sh/chart: carts-0.1.1
     app.kubernetes.io/name: carts
     app.kubernetes.io/instance: carts
     app.kubernetes.io/component: service
     app.kuberneres.io/owner: retail-store-sample
-    app.kubernetes.io/managed-by: Helm
+    # app.kubernetes.io/managed-by: Helm
 ---
 # Source: carts/templates/configmap.yml
 apiVersion: v1
@@ -257,11 +257,11 @@ kind: Service
 metadata:
   name: carts-dynamodb
   labels:
-    helm.sh/chart: carts-0.1.1
+    # helm.sh/chart: carts-0.1.1
     app.kubernetes.io/name: carts
     app.kubernetes.io/instance: carts
     app.kubernetes.io/component: dynamodb
-    app.kubernetes.io/managed-by: Helm
+    # app.kubernetes.io/managed-by: Helm
 spec:
   type: ClusterIP
   ports:
@@ -280,12 +280,12 @@ kind: Service
 metadata:
   name: carts
   labels:
-    helm.sh/chart: carts-0.1.1
+    # helm.sh/chart: carts-0.1.1
     app.kubernetes.io/name: carts
     app.kubernetes.io/instance: carts
     app.kubernetes.io/component: service
     app.kuberneres.io/owner: retail-store-sample
-    app.kubernetes.io/managed-by: Helm
+    # app.kubernetes.io/managed-by: Helm
 spec:
   type: ClusterIP
   ports:
@@ -305,12 +305,12 @@ kind: Deployment
 metadata:
   name: carts
   labels:
-    helm.sh/chart: carts-0.1.1
+    # helm.sh/chart: carts-0.1.1
     app.kubernetes.io/name: carts
     app.kubernetes.io/instance: carts
     app.kubernetes.io/component: service
     app.kuberneres.io/owner: retail-store-sample
-    app.kubernetes.io/managed-by: Helm
+    # app.kubernetes.io/managed-by: Helm
 spec:
   replicas: 1
   strategy:
@@ -353,7 +353,7 @@ spec:
             readOnlyRootFilesystem: true
             runAsNonRoot: true
             runAsUser: 1000
-          image: "205856127113.dkr.ecr.us-east-1.amazonaws.com/retail-store/containers/retail-store-sample-cart:0.1.1"
+          image: "205856127113.dkr.ecr.us-east-1.amazonaws.com/retail-store/containers/retail-store-sample-cart"
           imagePullPolicy: IfNotPresent
           ports:
             - name: http
@@ -385,11 +385,11 @@ kind: Deployment
 metadata:
   name: carts-dynamodb
   labels:
-    helm.sh/chart: carts-0.1.1
+    # helm.sh/chart: carts-0.1.1
     app.kubernetes.io/name: carts
     app.kubernetes.io/instance: carts
     app.kubernetes.io/component: dynamodb
-    app.kubernetes.io/managed-by: Helm
+    # app.kubernetes.io/managed-by: Helm
 spec:
   replicas: 1
   selector:
@@ -420,12 +420,12 @@ kind: ServiceAccount
 metadata:
   name: orders
   labels:
-    helm.sh/chart: orders-0.1.1
+    # helm.sh/chart: orders-0.1.1
     app.kubernetes.io/name: orders
     app.kubernetes.io/instance: orders
     app.kubernetes.io/component: service
     app.kuberneres.io/owner: retail-store-sample
-    app.kubernetes.io/managed-by: Helm
+    # app.kubernetes.io/managed-by: Helm
 ---
 # Source: orders/templates/postgresql-secret.yaml
 apiVersion: v1
@@ -459,11 +459,11 @@ kind: Service
 metadata:
   name: orders-postgresql
   labels:
-    helm.sh/chart: orders-0.1.1
+    # helm.sh/chart: orders-0.1.1
     app.kubernetes.io/name: orders
     app.kubernetes.io/instance: orders
     app.kubernetes.io/component: postgresql
-    app.kubernetes.io/managed-by: Helm
+    # app.kubernetes.io/managed-by: Helm
 spec:
   type: ClusterIP
   ports:
@@ -482,11 +482,11 @@ kind: Service
 metadata:
   name: orders-rabbitmq
   labels:
-    helm.sh/chart: orders-0.1.1
+    # helm.sh/chart: orders-0.1.1
     app.kubernetes.io/name: orders
     app.kubernetes.io/instance: orders
     app.kubernetes.io/component: rabbitmq
-    app.kubernetes.io/managed-by: Helm
+    # app.kubernetes.io/managed-by: Helm
 spec:
   type: ClusterIP
   ports:
@@ -509,12 +509,12 @@ kind: Service
 metadata:
   name: orders
   labels:
-    helm.sh/chart: orders-0.1.1
+    # helm.sh/chart: orders-0.1.1
     app.kubernetes.io/name: orders
     app.kubernetes.io/instance: orders
     app.kubernetes.io/component: service
     app.kuberneres.io/owner: retail-store-sample
-    app.kubernetes.io/managed-by: Helm
+    # app.kubernetes.io/managed-by: Helm
 spec:
   type: ClusterIP
   ports:
@@ -534,12 +534,12 @@ kind: Deployment
 metadata:
   name: orders
   labels:
-    helm.sh/chart: orders-0.1.1
+    # helm.sh/chart: orders-0.1.1
     app.kubernetes.io/name: orders
     app.kubernetes.io/instance: orders
     app.kubernetes.io/component: service
     app.kuberneres.io/owner: retail-store-sample
-    app.kubernetes.io/managed-by: Helm
+    # app.kubernetes.io/managed-by: Helm
 spec:
   replicas: 1
   strategy:
@@ -594,7 +594,7 @@ spec:
             readOnlyRootFilesystem: true
             runAsNonRoot: true
             runAsUser: 1000
-          image: "205856127113.dkr.ecr.us-east-1.amazonaws.com/retail-store/containers/retail-store-sample-orders:0.1.1"
+          image: "205856127113.dkr.ecr.us-east-1.amazonaws.com/retail-store/containers/retail-store-sample-orders"
           imagePullPolicy: IfNotPresent
           ports:
             - name: http
@@ -626,11 +626,11 @@ kind: StatefulSet
 metadata:
   name: orders-postgresql
   labels:
-    helm.sh/chart: orders-0.1.1
+    # helm.sh/chart: orders-0.1.1
     app.kubernetes.io/name: orders
     app.kubernetes.io/instance: orders
     app.kubernetes.io/component: postgresql
-    app.kubernetes.io/managed-by: Helm
+    # app.kubernetes.io/managed-by: Helm
 spec:
   replicas: 1
   serviceName: orders-postgresql
@@ -682,11 +682,11 @@ kind: StatefulSet
 metadata:
   name: orders-rabbitmq
   labels:
-    helm.sh/chart: orders-0.1.1
+    # helm.sh/chart: orders-0.1.1
     app.kubernetes.io/name: orders
     app.kubernetes.io/instance: orders
     app.kubernetes.io/component: rabbitmq
-    app.kubernetes.io/managed-by: Helm
+    # app.kubernetes.io/managed-by: Helm
 spec:
   replicas: 1
   serviceName: orders-rabbitmq
@@ -727,12 +727,12 @@ kind: ServiceAccount
 metadata:
   name: checkout
   labels:
-    helm.sh/chart: checkout-0.1.1
+    # helm.sh/chart: checkout-0.1.1
     app.kubernetes.io/name: checkout
     app.kubernetes.io/instance: checkout
     app.kubernetes.io/component: service
     app.kuberneres.io/owner: retail-store-sample
-    app.kubernetes.io/managed-by: Helm
+    # app.kubernetes.io/managed-by: Helm
 ---
 # Source: checkout/templates/configmap.yml
 apiVersion: v1
@@ -749,11 +749,11 @@ kind: Service
 metadata:
   name: checkout-redis
   labels:
-    helm.sh/chart: checkout-0.1.1
+    # helm.sh/chart: checkout-0.1.1
     app.kubernetes.io/name: checkout
     app.kubernetes.io/instance: checkout
     app.kubernetes.io/component: redis
-    app.kubernetes.io/managed-by: Helm
+    # app.kubernetes.io/managed-by: Helm
 spec:
   type: ClusterIP
   ports:
@@ -772,12 +772,12 @@ kind: Service
 metadata:
   name: checkout
   labels:
-    helm.sh/chart: checkout-0.1.1
+    # helm.sh/chart: checkout-0.1.1
     app.kubernetes.io/name: checkout
     app.kubernetes.io/instance: checkout
     app.kubernetes.io/component: service
     app.kuberneres.io/owner: retail-store-sample
-    app.kubernetes.io/managed-by: Helm
+    # app.kubernetes.io/managed-by: Helm
 spec:
   type: ClusterIP
   ports:
@@ -797,12 +797,12 @@ kind: Deployment
 metadata:
   name: checkout
   labels:
-    helm.sh/chart: checkout-0.1.1
+    # helm.sh/chart: checkout-0.1.1
     app.kubernetes.io/name: checkout
     app.kubernetes.io/instance: checkout
     app.kubernetes.io/component: service
     app.kuberneres.io/owner: retail-store-sample
-    app.kubernetes.io/managed-by: Helm
+    # app.kubernetes.io/managed-by: Helm
 spec:
   replicas: 1
   strategy:
@@ -842,7 +842,7 @@ spec:
             readOnlyRootFilesystem: true
             runAsNonRoot: true
             runAsUser: 1000
-          image: "205856127113.dkr.ecr.us-east-1.amazonaws.com/retail-store/containers/retail-store-sample-checkout:0.1.1"
+          image: "205856127113.dkr.ecr.us-east-1.amazonaws.com/retail-store/containers/retail-store-sample-checkout"
           imagePullPolicy: IfNotPresent
           ports:
             - name: http
@@ -874,11 +874,11 @@ kind: Deployment
 metadata:
   name: checkout-redis
   labels:
-    helm.sh/chart: checkout-0.1.1
+    # helm.sh/chart: checkout-0.1.1
     app.kubernetes.io/name: checkout
     app.kubernetes.io/instance: checkout
     app.kubernetes.io/component: redis
-    app.kubernetes.io/managed-by: Helm
+    # app.kubernetes.io/managed-by: Helm
 spec:
   replicas: 1
   selector:
@@ -909,12 +909,12 @@ kind: ServiceAccount
 metadata:
   name: assets
   labels:
-    helm.sh/chart: assets-0.1.1
+    # helm.sh/chart: assets-0.1.1
     app.kubernetes.io/name: assets
     app.kubernetes.io/instance: assets
     app.kubernetes.io/component: service
     app.kuberneres.io/owner: retail-store-sample
-    app.kubernetes.io/managed-by: Helm
+    # app.kubernetes.io/managed-by: Helm
 ---
 # Source: assets/templates/configmap.yml
 apiVersion: v1
@@ -930,12 +930,12 @@ kind: Service
 metadata:
   name: assets
   labels:
-    helm.sh/chart: assets-0.1.1
+    # helm.sh/chart: assets-0.1.1
     app.kubernetes.io/name: assets
     app.kubernetes.io/instance: assets
     app.kubernetes.io/component: service
     app.kuberneres.io/owner: retail-store-sample
-    app.kubernetes.io/managed-by: Helm
+    # app.kubernetes.io/managed-by: Helm
 spec:
   type: ClusterIP
   ports:
@@ -955,12 +955,12 @@ kind: Deployment
 metadata:
   name: assets
   labels:
-    helm.sh/chart: assets-0.1.1
+    # helm.sh/chart: assets-0.1.1
     app.kubernetes.io/name: assets
     app.kubernetes.io/instance: assets
     app.kubernetes.io/component: service
     app.kuberneres.io/owner: retail-store-sample
-    app.kubernetes.io/managed-by: Helm
+    # app.kubernetes.io/managed-by: Helm
 spec:
   replicas: 1
   strategy:
@@ -994,7 +994,7 @@ spec:
               drop:
               - ALL
             readOnlyRootFilesystem: false
-          image: "205856127113.dkr.ecr.us-east-1.amazonaws.com/retail-store/containers/retail-store-sample-assets:0.1.1"
+          image: "205856127113.dkr.ecr.us-east-1.amazonaws.com/retail-store/containers/retail-store-sample-assets"
           imagePullPolicy: IfNotPresent
           ports:
             - name: http
@@ -1027,12 +1027,12 @@ kind: ServiceAccount
 metadata:
   name: ui
   labels:
-    helm.sh/chart: ui-0.1.1
+    # helm.sh/chart: ui-0.1.1
     app.kubernetes.io/name: ui
     app.kubernetes.io/instance: ui
     app.kubernetes.io/component: service
     app.kuberneres.io/owner: retail-store-sample
-    app.kubernetes.io/managed-by: Helm
+    # app.kubernetes.io/managed-by: Helm
 ---
 # Source: ui/templates/configmap.yml
 apiVersion: v1
@@ -1053,12 +1053,12 @@ kind: Service
 metadata:
   name: ui
   labels:
-    helm.sh/chart: ui-0.1.1
+    # helm.sh/chart: ui-0.1.1
     app.kubernetes.io/name: ui
     app.kubernetes.io/instance: ui
     app.kubernetes.io/component: service
     app.kuberneres.io/owner: retail-store-sample
-    app.kubernetes.io/managed-by: Helm
+    # app.kubernetes.io/managed-by: Helm
 spec:
   type: LoadBalancer
   ports:
@@ -1078,12 +1078,12 @@ kind: Deployment
 metadata:
   name: ui
   labels:
-    helm.sh/chart: ui-0.1.1
+    # helm.sh/chart: ui-0.1.1
     app.kubernetes.io/name: ui
     app.kubernetes.io/instance: ui
     app.kubernetes.io/component: service
     app.kuberneres.io/owner: retail-store-sample
-    app.kubernetes.io/managed-by: Helm
+    # app.kubernetes.io/managed-by: Helm
 spec:
   replicas: 1
   strategy:
@@ -1128,7 +1128,7 @@ spec:
             readOnlyRootFilesystem: true
             runAsNonRoot: true
             runAsUser: 1000
-          image: "205856127113.dkr.ecr.us-east-1.amazonaws.com/retail-store/containers/retail-store-sample-ui:0.1.1"
+          image: "205856127113.dkr.ecr.us-east-1.amazonaws.com/retail-store/containers/retail-store-sample-ui"
           imagePullPolicy: IfNotPresent
           ports:
             - name: http
