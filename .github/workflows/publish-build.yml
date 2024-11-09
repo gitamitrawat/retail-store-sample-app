@@ -118,6 +118,7 @@ jobs:
         run: |
           # Download the kubectl binary compatible with your EKS cluster's version
           KUBECTL_VERSION=$(aws eks describe-cluster --name retail-store-eks --query "cluster.version" --output text) || true
+          echo "Installing kubectl version $KUBECTL_VERSION..."
           curl -LO "https://dl.k8s.io/release/v$KUBECTL_VERSION/bin/linux/amd64/kubectl"
           chmod +x kubectl
           sudo mv kubectl /usr/local/bin/
@@ -125,6 +126,7 @@ jobs:
       - name: Set up kubectl
         run: |
           # Get the kubeconfig for your EKS cluster
+          kubectl version
           aws eks update-kubeconfig --name retail-store-eks --region us-east-1
 
       - name: Deploy to EKS
